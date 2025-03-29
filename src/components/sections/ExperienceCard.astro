@@ -1,11 +1,11 @@
-
 ---
 import { getCollection } from "astro:content";
-import Card from '../Card.astro'
-import { Button } from '../ui/button'
+import Card from "../Card.astro";
+import { Button } from "../ui/button";
 import { formateLocalDate } from "../../lib/utils";
+import { MapPin } from "lucide-react";
 
-let experiences = await getCollection('experiences');
+let experiences = await getCollection("experiences");
 
 // sort projects by dateStart DESC
 experiences.sort((a: any, b: any) => {
@@ -15,24 +15,47 @@ experiences.sort((a: any, b: any) => {
 experiences = experiences.slice(0, 3);
 ---
 
-
-<div class="mt-2 space-y-4">
+<div class="mt-2 space-y-6">
   {
     experiences.slice(0, 3).map((exp) => (
-      <div>
-        <h4 class="text-md font-medium">{exp.data.title}</h4>
-        <a class="text-sm text-primary hover:underline" href={ '/experiences/' + exp?.slug ?? ''}>
-          {exp.data.company}
-        </a>
-        <p class="text-sm text-gray-600">
-         {formateLocalDate(exp.data.startDate)} {exp.data?.endDate ? '- ' + formateLocalDate(exp.data.endDate) : ''}
+      <div class="space-y-2">
+        <div class="flex justify-between items-start">
+          <div>
+            <a href={"/experiences/" + exp?.slug ?? ""}>
+              <h4 class="text-md text-primary font-medium hover:underline">
+                {exp.data.title}
+              </h4>
+            </a>
+            <div class="flex items-center gap-2">
+              <a class="text-sm hover:underline" href={exp.data.link}>
+                {exp.data.company}
+              </a>
+              {exp.data.location && (
+                <>
+                  <div class="h-3 w-px bg-muted-foreground/30"></div>
+                  <div class="flex items-center gap-1 text-xs text-muted-foreground">
+                    <MapPin size={12} color="#242424" />
+                    <span>{exp.data.location}</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          <p class="text-sm text-gray-600">
+            {formateLocalDate(exp.data.startDate)}{" "}
+            {exp.data?.endDate ? "- " + formateLocalDate(exp.data.endDate) : ""}
+          </p>
+        </div>
 
-        </p>
+        <div class="flex flex-wrap gap-2">
+          {exp.data.tags?.slice(0, 9).map((tag) => (
+            <span class="text-xs px-2 py-1 bg-muted rounded-full">{tag}</span>
+          ))}
+        </div>
       </div>
     ))
   }
-  <a href="/experiences">
-    <Button variant="link" className="pl-0"> View More</Button>
+  <a href="/experiences" class="block pt-2">
+    <Button variant="link" className="pl-0">View More</Button>
   </a>
 </div>
-

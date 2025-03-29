@@ -13,7 +13,12 @@ const SITE = PROFILE.site
     class="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0"
   >
     <div class="flex gap-6 md:gap-10">
-      <a href="/" class="flex items-center space-x-2">
+      <a href="/" class="flex items-center space-x-3">
+        <img
+          src="/CaraPersonalizada.png"
+          alt="Profile"
+          class="h-10 w-10 rounded-full object-cover"
+        />
         <span class="inline-block font-bold">{PROFILE.name}</span>
       </a>
     </div>
@@ -32,7 +37,7 @@ const SITE = PROFILE.site
           Projects
         </a>
         <a
-          href={PROFILE.repo}
+          href={PROFILE.links.github}
           target="_blank"
           rel="noreferrer"
           class={buttonVariants({variant: 'ghost'})}

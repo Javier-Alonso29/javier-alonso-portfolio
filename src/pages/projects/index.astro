@@ -3,8 +3,6 @@ import ProjectCard from 'src/components/ProjectCard.astro'
 import { getCollection } from "astro:content";
 import IndexPageLayout from "../../layouts/IndexPageLayout.astro";
 
-
-
 // read mdx files from projects folder as entities
 const projects = await getCollection('projects');
 
@@ -14,23 +12,34 @@ projects.sort((a: any, b: any) => {
 });
 ---
 
-<IndexPageLayout title="Projects" description="Projects I have worked on recently." subTitle="My Projects">
-  <div class="grid grid-cols-3 gap-3">
-
-  {
-    projects.map((entity: any) => (
-      <ProjectCard
-        key={entity.data.title}
-        href={'/projects/' + entity.slug}
-        heading={entity.data.title}
-        subheading={entity.data.description}
-        altText={entity?.data?.image.alt}
-        imagePath={entity?.data?.image.url}
-        dateStart={entity.data.startDate}
-      />
-    ))
-  }
+<IndexPageLayout 
+  title="Projects" 
+  description="Projects I have worked on recently." 
+  subTitle="My Projects"
+>
+  <div class="max-w-4xl mx-auto px-4 md:px-6">
+    {projects.length === 0 ? (
+      <div class="flex flex-col items-center justify-center py-12 text-center space-y-4">
+        <span class="text-4xl">🚧</span>
+        <div class="space-y-2">
+          <p class="text-xl font-medium">No projects yet</p>
+          <p class="text-sm text-muted-foreground">
+            Check back soon for upcoming projects!
+          </p>
+        </div>
+      </div>
+    ) : (
+      <div class="divide-y divide-muted/30 -mt-6">
+        {projects.map((entity: any) => (
+          <ProjectCard
+            key={entity.data.title}
+            href={'/projects/' + entity.slug}
+            heading={entity.data.title}
+            subheading={entity.data.description}
+            dateStart={entity.data.startDate}
+          />
+        ))}
+      </div>
+    )}
   </div>
-
-
 </IndexPageLayout>

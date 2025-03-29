@@ -13,7 +13,7 @@ experiences.sort((a, b) => {
 });
 ---
 <IndexPageLayout title="Experiences"
-                 description="Places I have worked in, this is just a rough timeline, not include all details."
+                 description="Here's a glimpse into my professional journey! 🚀 Check out where I've been and what I've learned along the way."
                  subTitle="Experiences">
 
   <Table>
@@ -30,7 +30,7 @@ experiences.sort((a, b) => {
               <div class="flex flex-col gap-1 min-w-20">
                 <a
                   href={'/experiences/' + entry.slug ?? ''}
-                  class={`font-semibold hover:font-extrabold ${entry?.slug ? 'text-primary' : 'text-foreground'}`}
+                  class={`font-semibold hover:underline ${entry?.slug ? 'text-primary' : 'text-foreground'}`}
                 >
                   {entry.data.title}
                 </a>

@@ -15,25 +15,38 @@ posts = posts.slice(0, 2);
 
 
 <div class="mt-2 space-y-4">
-  {
-    posts.map((project) => (
-      <div>
-        <h3 class="text-lg font-semibold text-primary">
-          <a href={`/posts/${project.slug}`} class="hover:underline line-clamp-2">
-            {project.data.title}
-          </a>
-        </h3>
-        <p class="text-sm line-clamp-2">
-          {project.data.description}
-        </p>
-        <p class="text-sm text-gray-600">
-          {formateLocalDate(project.data.startDate)} {project.data?.endDate ? '- ' + formateLocalDate(project.data.endDate) : ''}
+  {posts.length === 0 ? (
+    <div class="flex flex-col items-center justify-center py-6 text-center space-y-3 rounded-lg">
+      <div class="space-y-1">
+        <div class="flex items-center justify-center gap-2">
+          <span class="text-3xl"></span>
+          <p class="text-base font-medium">No posts yet</p>
+        </div>
+        <p class="text-sm text-muted-foreground">
+          Check back soon for updates and articles!
         </p>
       </div>
-    ))
-  }
-  <a href="/posts">
-    <Button variant="link" className="pl-0"> View More</Button>
-  </a>
+    </div>
+  ) : (
+    <>
+      {posts.map((project) => (
+        <div>
+          <h3 class="text-lg font-semibold text-primary">
+            <a href={`/posts/${project.slug}`} class="hover:underline line-clamp-2">
+              {project.data.title}
+            </a>
+          </h3>
+          <p class="text-sm line-clamp-2">
+            {project.data.description}
+          </p>
+          <p class="text-sm text-gray-600">
+            {formateLocalDate(project.data.startDate)} {project.data?.endDate ? '- ' + formateLocalDate(project.data.endDate) : ''}
+          </p>
+        </div>
+      ))}
+      <a href="/posts">
+        <Button variant="link" className="pl-0">View More</Button>
+      </a>
+    </>
+  )}
 </div>
-

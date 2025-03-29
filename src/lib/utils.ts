@@ -3,7 +3,6 @@ import { twMerge } from "tailwind-merge";
 import { getCollection } from "astro:content";
 import { PROFILE } from "@/content/profileData.ts";
 
-
 /**
  * mergeClassNamesSafely
  * @param inputs
@@ -31,12 +30,14 @@ export const formateLocalDate = (
   date: Date,
   timeZone: string = PROFILE.timezone,
 ): string => {
+  const dateObj = new Date(date);
+  dateObj.setUTCHours(12); // Set to noon UTC to avoid timezone issues
   return new Intl.DateTimeFormat(getLocalLanguage(), {
     year: "numeric",
     month: "short",
     day: "2-digit",
     timeZone: timeZone,
-  }).format(date);
+  }).format(dateObj);
 };
 
 export const formateLocalMonth = (
@@ -58,21 +59,24 @@ export const getAndGroupUniqueTags = async (): Promise<Map<string, any[]>> => {
 
   const allItems = [...allProjects, ...allExperiences, ...books, ...posts];
 
-  // @ts-ignore
-  const uniqueTags: string[] = [
-    ...new Set(allProjects.map((post: any) => post.data.tags).flat()),
-    ...new Set(allExperiences.map((post: any) => post.data.tags).flat()),
-    ...new Set(books.map((post: any) => post.data.tags).flat()),
-    ...new Set(posts.map((post: any) => post.data.tags).flat()),
-  ];
+  // Get all tags from each collection
+  const projectTags = allProjects.flatMap((post: any) => post.data?.tags || []);
+  const experienceTags = allExperiences.flatMap((post: any) => post.data?.tags || []);
+  const bookTags = books.flatMap((post: any) => post.data?.tags || []);
+  const postTags = posts.flatMap((post: any) => post.data?.tags || []);
+
+  // Get unique tags
+  const uniqueTags = [...new Set([...projectTags, ...experienceTags, ...bookTags, ...postTags])];
+  
   const tagItemsMap = new Map<string, any[]>();
 
   uniqueTags.forEach((tag) => {
     const filteredItems = allItems.filter((item) =>
-      item?.data?.tags?.includes(tag),
+      Array.isArray(item?.data?.tags) && item.data.tags.includes(tag),
     );
 
     tagItemsMap.set(tag, filteredItems);
   });
+  
   return tagItemsMap;
 };

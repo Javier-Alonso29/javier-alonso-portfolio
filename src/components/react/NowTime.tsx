@@ -14,8 +14,6 @@ const NowTime = ({timezone}: { timezone?: string }) => {
 
   const usingTimezone = timezone ? timezone : browserTimezone;
 
-  console.log(usingTimezone)
-
   useEffect(() => {
     const interval = setInterval(() => {
       const date = new Date();
