@@ -1,39 +1,34 @@
 ---
-import ProjectCard from 'src/components/ProjectCard.astro'
+import PostPreview from 'src/components/PostPreview.astro'
 import { getCollection } from "astro:content";
-
-
 import IndexPageLayout from "../../layouts/IndexPageLayout.astro";
 
-
-// read mdx files from projects folder as entities
+// read mdx files from posts folder
 const posts = await getCollection('posts');
 
-// sort projects by dateStart DESC
+// sort posts by startDate DESC
 posts.sort((a: any, b: any) => {
-  return new Date(b.data.startDate) - new Date(a.data.startDate);
+  return new Date(b.data.startDate).getTime() - new Date(a.data.startDate).getTime();
 });
 ---
 
-<IndexPageLayout title="Blog" description="This is a simple blog for my this profile website."
-                 subTitle="My Simple Blog">
+<IndexPageLayout 
+  title="Blog" 
+  description="Thoughts, tutorials and insights about software development"
+  subTitle="Articles & Insights">
 
-  <div class="grid grid-cols-3 gap-3">
+  <div class="max-w-3xl mx-auto px-4">
     {
-      posts.map((entity: any) => (
-        <ProjectCard
-          class=""
-          key={entity.data.title}
-          href={'/posts/' + entity.slug}
-          heading={entity.data.title}
-          subheading={entity.data.description}
-          altText={entity?.data?.image.alt}
-          imagePath={entity?.data?.image.url}
-          dateStart={entity.data.startDate}
+      posts.map((post) => (
+        <PostPreview
+          title={post.data.title}
+          description={post.data.description}
+          slug={post.slug}
+          startDate={post.data.startDate}
+          tags={post.data.tags}
         />
       ))
     }
   </div>
-
 
 </IndexPageLayout>
