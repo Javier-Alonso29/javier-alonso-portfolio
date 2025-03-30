@@ -1,0 +1,53 @@
+---
+import { Badge } from "../components/ui/badge";
+
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  startDate: string;
+  tags: string[];
+}
+
+const { title, description, slug, startDate, tags } = Astro.props;
+
+const formattedDate = new Date(startDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<article class="py-8 border-b border-gray-200">
+  <div class="flex items-center gap-3 mb-4">
+    <img 
+      src="/CarapersonalizadaNotionBlue.png" 
+      alt="Javier Alonso avatar" 
+      class="w-12 h-12 rounded-full object-cover"
+      width="48"
+      height="48"
+    />
+    <div class="flex flex-col">
+      <h3 class="font-medium">Javier Alonso</h3>
+      <time datetime={startDate} class="text-sm text-gray-400">{formattedDate}</time>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-bold mb-3">
+    <a href={`/posts/${slug}`} class="hover:text-primary transition-colors">
+      {title}
+    </a>
+  </h2>
+
+  <p class="text-gray-600 dark:text-gray-300 mb-4">
+    {description}
+  </p>
+
+  <footer class="flex flex-wrap gap-2">
+    {tags.map(tag => (
+      <Badge>
+        #{tag}
+      </Badge>
+    ))}
+  </footer>
+</article>

@@ -1,0 +1,113 @@
+---
+title: "Git Tags: A Complete Guide to Versioning"
+description: "Learn how to effectively use Git Tags for code versioning. From basic concepts to best practices and advanced workflows."
+startDate: 2025-03-29
+heroImage: "/blog/git-tags.webp"
+tags: ["Git", "development", "versioning"]
+draft: false
+---
+
+Git tags are immutable references that point to specific points in a repository's history. They are primarily used to mark important project versions, such as software releases (e.g., v1.0.0, v2.0.0), making it easier to identify key milestones in development. Their use helps maintain a clear and structured version history of the software, helping teams track significant changes and facilitate deployment management.
+
+## Why Use Git Tags?
+There are many reasons to use tags in Git, but the most common ones are:
+
+- Mark official releases
+- Allow reverting to previous versions without needing to remember commit hashes
+- Facilitate identification of key development milestones
+
+## Types of Tags
+
+### Lightweight Tags
+```bash
+git tag v1.0.0
+```
+Lightweight tags are merely aliases for a specific commit. They don't have associated metadata (name, email, and date) and cannot be digitally signed. Therefore, they are not recommended for use in production environments.
+
+### Annotated Tags
+```bash
+git tag -a v1.0.0 -m "First stable version"
+```
+Annotated tags in Git are a type of tag that stores additional information about a specific commit. Unlike lightweight tags, annotated tags include:
+
+<div class="flex flex-col">
+<p class="my-0">✅ Tag author</p>
+<p class="my-0">✅ Creation date</p>
+<p class="my-0">✅ Descriptive message (similar to a commit)</p>
+<p class="my-0">✅ Digital signature (optional, for authentication)</p>
+</div>
+
+## How to View Your Created Tags?
+
+You can view all your created tags with this command:
+
+```bash
+git tag
+v1.0
+v2.0
+```
+
+## Versioning Conventions
+
+Proper software versioning is essential for maintaining clear control of the different stages and changes in a project. One of the most popular methodologies for managing versions is Semantic Versioning or SemVer.
+
+The semantic versioning format is as follows:
+
+```
+v1.0.0
+│ │ │
+│ │ └─ PATCH: Bug fixes
+│ └─── MINOR: New features
+└───── MAJOR: Breaking changes
+```
+
+### Usage Examples
+
+Here are 3 examples of annotated tags for different types of versions:
+
+```bash
+# Tagging a major version
+git tag -a v2.0.0 -m "Breaking changes: new API"
+
+# Tagging a minor version
+git tag -a v1.1.0 -m "Added new advanced search feature"
+
+# Tagging a patch
+git tag -a v1.0.1 -m "Fixed login module bug"
+```
+
+## Essential Commands
+
+```bash
+# List tags
+git tag
+
+# Create annotated tag
+git tag -a v1.0.0 -m "Version 1.0.0"
+
+# Push tags
+git push origin v1.0.0
+
+# Push all tags
+git push origin --tags
+
+# Delete tag
+git tag -d v1.0.0
+```
+
+## Best Practices
+<div class="flex flex-col">
+<p class="my-0">✅ **Use annotated tags** for releases</p>
+<p class="my-0">✅ **Follow SemVer** for numbering</p>
+<p class="my-0">✅ **Include descriptive messages**</p>
+<p class="my-0">✅ **Don't modify published tags**</p>
+<p class="my-0">✅ **Document important changes**</p>
+</div>
+
+## Conclusion
+
+Tags are a best practice for software development as they allow us to maintain a clear and well-structured history of our application versions. Additionally, they help us more easily identify key milestones we've achieved in each version.
+
+Remember that software development isn't just about creating software, but also about managing the tools we use to create it.
+
+Therefore, having a clearer and more professional management of our work makes it easier for us to perform our tasks effectively.
