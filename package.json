@@ -1,28 +1,39 @@
 {
-  "site": "https://techtim42.com",
-  "id": "TechTim42",
-  "name": "@tim-hub/techtim42",
+  "site": "https://javieralonso.netlify.app/",
+  "id": "JavierAlonso",
+  "name": "@javier/alonso",
   "version": "1.0.0",
-  "fullName": "Tech Tim",
-  "description": "Learn, Share and Grow ❤️ -- Software Engineer | AWS Professional | Open Source Lover  --☘️ Be more productive, Better in communicating, Contribute more to community ",
+  "fullName": "Javier Alonso",
+  "description": "Software Engineer | Javier Alonso's Portfolio",
   "author": {
-    "name": "Tech Tim",
-    "url": "https://TechTim42.com"
+    "name": "Javier Alonso",
+    "url": "https://javieralonso.netlify.app/"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Javier-Alonso29/javier-alonso-portfolio"
   },
-  "homepage": "https://techtim42.com",
+  "homepage": "https://javieralonso.netlify.app/",
   "keywords": [
-    "astro",
+    "Astro",
     "portfolio",
     "blog",
     "projects",
     "experience",
     "tags system",
     "tailwindcss",
-    "react"
+    "react",
+    "JavaScript",
+    "TypeScript",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Material-UI",
+    "Tailwind CSS",
+    "Java",
+    "Spring Boot",
+    "Atlassian",
+    "Atlassian Add-ons"
   ],
   "license": "MIT",
   "scripts": {
