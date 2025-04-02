@@ -3,7 +3,7 @@ export const PROFILE = {
     SEO: {
       title: "Javier Alonso - Software Engineer",
       description:
-        "Software Engineer --☘️ Be more productive, Better in communicating, Contribute more to community. | Tech Tim's New Astro Portfolio",
+        "Software Engineer 👨🏻‍💻 | Javier Alonso's Portfolio",
     },
   },
   timezone: "Mexico/General",
