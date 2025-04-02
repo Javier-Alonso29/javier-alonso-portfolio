@@ -1,9 +1,9 @@
 export const PROFILE = {
   site: {
     SEO: {
-      title: "Javier Alonso - Software Engineer",
+      title: "Javier Alonso | Software Engineer",
       description:
-        "Software Engineer 👨🏻‍💻 | Javier Alonso's Portfolio",
+        "Software Engineer specializing in web development and Atlassian solutions. Building scalable digital experiences with JavaScript, React, and Spring Boot.",
     },
   },
   timezone: "Mexico/General",
