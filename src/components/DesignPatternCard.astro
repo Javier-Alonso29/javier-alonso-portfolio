@@ -1,0 +1,52 @@
+---
+import type { DesignPattern } from '../types/DesignPattern';
+import { Badge } from './ui/badge';
+
+interface Props {
+    pattern: DesignPattern;
+}
+
+const { pattern } = Astro.props;
+---
+
+<article class="rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
+    <div class="p-6">
+        <div class="flex items-center justify-between">
+            <div class="space-y-1">
+                <h3 class="text-2xl font-semibold tracking-tight">
+                    {pattern.title}
+                </h3>
+                <Badge variant="secondary">{pattern.type}</Badge>
+            </div>
+        </div>
+        <p class="mt-4 text-muted-foreground">
+            {pattern.description}
+        </p>
+        <div class="mt-4">
+            <a
+                href={pattern.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+            >
+                Ver en GitHub
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="ml-2 h-4 w-4"
+                >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</article>
