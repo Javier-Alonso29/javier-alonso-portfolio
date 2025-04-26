@@ -1,0 +1,108 @@
+---
+import IndexPageLayout from '../layouts/IndexPageLayout.astro';
+import { Badge } from '../components/ui/badge';
+import { fetchDesignPatterns } from '../utils/github';
+
+const patterns = await fetchDesignPatterns();
+
+// Agrupar patrones por tipo
+const patternsByType = patterns.reduce((acc, pattern) => {
+    if (!acc[pattern.type]) {
+        acc[pattern.type] = [];
+    }
+    acc[pattern.type].push(pattern);
+    return acc;
+}, {} as Record<string, typeof patterns>);
+
+
+---
+
+<IndexPageLayout title="Design Patterns"
+                 description="Una colección de implementaciones de patrones de diseño en TypeScript, con ejemplos prácticos y explicaciones detalladas."
+                 subTitle="Design Patterns">
+
+    <main class="flex-auto min-w-0 flex flex-col md:px-0 max-w-4xl mx-auto">
+        <div class="prose dark:prose-invert mb-8">
+            <p class="text-lg text-gray-600 dark:text-gray-300">
+                Here you can find a collection of TypeScript implementations of design patterns, with practical examples and detailed explanations.
+            </p>
+
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+                <b>Note:</b> The source where the patterns are extracted is 
+                <a href="https://github.com/Javier-Alonso29/typescript_design_patterns" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">here</a>. 
+               This is a personal project to how I understand design patterns and how I implement them in TypeScript. 
+            </p>
+        </div>
+
+        <div class="space-y-16">
+            {Object.entries(patternsByType).map(([type, patterns]) => (
+                <section>
+                    <h2 class="text-3xl font-bold mb-8 text-zinc-800 dark:text-zinc-100 border-b pb-4">
+                        {type}
+                    </h2>
+                    <div class="space-y-12">
+                        {patterns.map((pattern) => (
+                            <article class="group">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <img 
+                                        src="/CarapersonalizadaNotionBlue.png" 
+                                        alt="Javier Alonso avatar" 
+                                        class="w-12 h-12 rounded-full object-cover"
+                                        width="48"
+                                        height="48"
+                                    />
+                                    <div class="flex flex-col align-center justify-center gap-2">
+                                        <h3 class="font-medium">Javier Alonso</h3>
+                                        <div class="">
+                                            <Badge variant="secondary">{pattern.type}</Badge>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3 class="text-2xl font-bold mb-3 hover:text-primary hover:underline transition-colors">
+                                    <a href={pattern.githubUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
+                                        {pattern.title}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="opacity-0 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                            <polyline points="15 3 21 3 21 9" />
+                                            <line x1="10" y1="14" x2="21" y2="3" />
+                                        </svg>
+                                    </a>
+                                </h3>
+
+                                <p class="text-gray-600 dark:text-gray-300 mb-4 text-lg">
+                                    {pattern.description}
+                                </p>
+
+                                <div class="flex items-center gap-4">
+                                    <a 
+                                        href={pattern.codeUrl} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        class="text-sm text-primary hover:underline inline-flex items-center gap-1"
+                                    >
+                                        View code on GitHub
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            ))}
+        </div>
+    </main>
+</IndexPageLayout>
