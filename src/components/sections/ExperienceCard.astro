@@ -1,15 +1,28 @@
 ---
 import { getCollection } from "astro:content";
 import Card from "../Card.astro";
+import { Badge, badgeVariants } from "../ui/badge";
 import { Button } from "../ui/button";
 import { formateLocalDate } from "../../lib/utils";
 import { MapPin } from "lucide-react";
 
 let experiences = await getCollection("experiences");
 
-// sort projects by dateStart DESC
+// Primero ordenamos por fecha
 experiences.sort((a: any, b: any) => {
-  return new Date(b.data.startDate) - new Date(a.data.startDate);
+  return (
+    new Date(b.data.startDate).getTime() - new Date(a.data.startDate).getTime()
+  );
+});
+
+// Luego movemos las experiencias con present: true al inicio
+experiences.sort((a: any, b: any) => {
+  const aPresent = a.data.present === true;
+  const bPresent = b.data.present === true;
+
+  if (aPresent && !bPresent) return -1;
+  if (!aPresent && bPresent) return 1;
+  return 0;
 });
 
 experiences = experiences.slice(0, 3);
@@ -21,18 +34,32 @@ experiences = experiences.slice(0, 3);
       <div class="space-y-2">
         <div class="flex justify-between items-start">
           <div>
-            <a href={"/experiences/" + exp?.slug ?? ""}>
-              <h4 class="text-md text-primary font-medium hover:underline">
-                {exp.data.title}
-              </h4>
-            </a>
             <div class="flex items-center gap-2">
-              <a class="text-sm hover:underline" href={exp.data.link}>
-                {exp.data.company}
+              <a href={"/experiences/" + exp?.slug ?? ""}>
+                <h4 class="text-md text-primary font-medium hover:underline">
+                  {exp.data.title}
+                </h4>
               </a>
+              {exp.data.present && (
+                <Badge
+                  variant="outline"
+                  className="text-xs bg-primary text-white"
+                >
+                  Present
+                </Badge>
+              )}
+
+
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2">
+                <a class="text-sm hover:underline" href={exp.data.link}>
+                  {exp.data.company}
+                </a>
+              </div>
               {exp.data.location && (
                 <>
-                  <div class="h-3 w-px bg-muted-foreground/30"></div>
+                  <div class="h-3 w-px bg-muted-foreground/30" />
                   <div class="flex items-center gap-1 text-xs text-muted-foreground">
                     <MapPin size={12} color="#242424" />
                     <span>{exp.data.location}</span>

@@ -26,6 +26,7 @@ const experienceCollection = defineCollection({
     company: z.string(),
     location: z.string().optional(),
     link: z.string().optional(),
+    present: z.boolean().optional(),
     tags: z.array(z.string()).optional(),
   }),
 });
