@@ -1,7 +1,7 @@
 ---
 import {Button} from '../ui/button'
 import {PROFILE} from "../../content/profileData";
-import {Linkedin, Github, Mail, Twitter} from 'lucide-react'
+import {Linkedin, Github, Mail, Twitter, FileDown} from 'lucide-react'
 ---
 
 <div class="flex h-full w-full animate-appear flex-col md:flex-row gap-4">
@@ -42,7 +42,14 @@ import {Linkedin, Github, Mail, Twitter} from 'lucide-react'
           <span class="sr-only">Send Email</span>
         </Button>
       </a>
-      
+      <a href="/assets/JavierAlonso_CV.pdf" download aria-label="download resume">
+        <Button aria-label="download resume" variant="default" className="gap-2">
+          <FileDown />
+          <span>
+            Download Resume
+          </span>
+        </Button>
+      </a>
     </div>
   </div>
   <img

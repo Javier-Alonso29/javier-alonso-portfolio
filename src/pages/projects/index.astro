@@ -8,7 +8,7 @@ const projects = await getCollection('projects');
 
 // sort projects by dateStart DESC
 projects.sort((a: any, b: any) => {
-  return new Date(b.data.startDate) - new Date(a.data.startDate);
+  return new Date(b.data.startDate).getTime() - new Date(a.data.startDate).getTime();
 });
 ---
 
@@ -31,13 +31,14 @@ projects.sort((a: any, b: any) => {
     ) : (
       <div class="divide-y divide-muted/30 -mt-6">
         {projects.map((entity: any) => (
-          <ProjectCard
-            key={entity.data.title}
-            href={'/projects/' + entity.slug}
-            heading={entity.data.title}
-            subheading={entity.data.description}
-            dateStart={entity.data.startDate}
-          />
+          <div key={entity.data.title} class="py-2">
+            <ProjectCard
+              href={'/projects/' + entity.slug}
+              heading={entity.data.title}
+              subheading={entity.data.description}
+              dateStart={entity.data.startDate.toISOString().split('T')[0]}
+            />
+          </div>
         ))}
       </div>
     )}
