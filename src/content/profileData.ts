@@ -14,7 +14,7 @@ export const PROFILE = {
   headLine2:
     "I enjoy providing software solutions and bring ideas to life.",
   avatarUrl: "profile2.jpeg",
-  description: "Passionate about building functional and scalable digital experiences. I love continuous learning and always look for ways to improve my skills. Sharing knowledge and exploring new technologies are key parts of my journey. 🚀",
+  description: "Software Engineer specialized in building scalable, high-performing frontend applications with React and modern JavaScript ecosystems, complemented by solid backend and performance testing experience. 🚀",
   words: ["As each one has received a gift, minister it to one another"],
   skills: [
     "JavaScript",

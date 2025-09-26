@@ -7,9 +7,11 @@ tags: ["SaaS", "React", "Redux", "MUI", "Formik", "Yup", "Axios", "NodeJs", "exp
 projectRepository: "https://github.com/MedicalHealt-devs"
 frontendRepository: "https://github.com/MedicalHealt-devs/MedicalHealth-FrontEnd"
 backendRepository: "https://github.com/MedicalHealt-devs/MedicalHealth-BackEnd"
+deploymentUrl: "https://medicalhealth-frontend.onrender.com/auth/login"
 ---
 
 import RepositoryLinks from '../../components/RepositoryLinks.astro';
+import ImageCarousel from '../../components/ImageCarousel.astro';
 
 <div class="not-prose bg-muted/30 p-4 rounded-lg mb-8">
   <p class="font-medium text-lg mb-2">Summary</p>
@@ -23,6 +25,7 @@ import RepositoryLinks from '../../components/RepositoryLinks.astro';
   projectRepository={frontmatter.projectRepository}
   frontendRepository={frontmatter.frontendRepository}
   backendRepository={frontmatter.backendRepository}
+  deploymentUrl={frontmatter.deploymentUrl}
 />
 
 <div class="space-y-8 mt-8">
@@ -51,10 +54,6 @@ import RepositoryLinks from '../../components/RepositoryLinks.astro';
           <li class="flex items-start gap-2">
             <span class="text-primary">•</span>
             <span>Email verification system</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-primary">•</span>
-            <span>Google OAuth integration</span>
           </li>
         </ul>
       </div>
@@ -104,13 +103,39 @@ import RepositoryLinks from '../../components/RepositoryLinks.astro';
       <ul class="list-none space-y-2 pl-4">
         <li class="flex items-start gap-2">
           <span class="text-primary">•</span>
-          <span>Google OAuth integration</span>
+          <span>Document upload and management system</span>
         </li>
         <li class="flex items-start gap-2">
           <span class="text-primary">•</span>
-          <span>Document upload and management system</span>
+          <span>Odontogram view</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-primary">•</span>
+          <span>Medical records view</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-primary">•</span>
+          <span>Search functionality</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-primary">•</span>
+          <span>Statistics view</span>
         </li>
       </ul>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-xl font-semibold mb-4">Project Screenshots</h3>
+    <div class="space-y-4">
+      <ImageCarousel
+        images={[
+          { src: "/assets/works/medical/registro.png", alt: "Medical Health" },
+          { src: "/assets/works/medical/UserList.png", alt: "User List View" },
+          { src: "/assets/works/medical/NewUserForm.png", alt: "New User Form" },
+          { src: "/assets/works/medical/Odontograma.png", alt: "User Details View" }
+        ]}
+      />
     </div>
   </div>
 

@@ -6,62 +6,99 @@ interface Props {
   deploymentUrl?: string;
 }
 
-const { projectRepository, frontendRepository, backendRepository, deploymentUrl } = Astro.props;
-const totalLinks = [projectRepository, frontendRepository, backendRepository, deploymentUrl].filter(Boolean).length;
+const {
+  projectRepository,
+  frontendRepository,
+  backendRepository,
+  deploymentUrl,
+} = Astro.props;
+const totalLinks = [
+  projectRepository,
+  frontendRepository,
+  backendRepository,
+  deploymentUrl,
+].filter(Boolean).length;
 ---
 
-{(projectRepository || frontendRepository || backendRepository || deploymentUrl) && (
-  <div class={`grid grid-cols-1 ${
-    totalLinks === 1 ? 'md:grid-cols-1 max-w-md mx-auto' : 
-    totalLinks === 2 ? 'md:grid-cols-2' : 
-    'md:grid-cols-3'
-  } gap-4 mb-6`}>
-    {deploymentUrl && (
-      <a href={deploymentUrl} 
-         class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-muted/40 hover:bg-primary/10 border border-muted-foreground/10 shadow-sm transition-all duration-200 group no-underline" 
-         target="_blank">
-        <span class="text-xl">🔥</span>
-        <div class="flex flex-col">
-          <span class="font-medium group-hover:text-primary group-hover:underline transition-colors">Live Demo</span>
-          <span class="text-xs text-muted-foreground">Try it out!</span>
-        </div>
-      </a>
-    )}
+{
+  (projectRepository ||
+    frontendRepository ||
+    backendRepository ||
+    deploymentUrl) && (
+    <div
+      class={`grid grid-cols-1 ${
+        totalLinks === 1
+          ? "md:grid-cols-1 max-w-md mx-auto"
+          : totalLinks === 2
+            ? "md:grid-cols-2"
+            : "md:grid-cols-3"
+      } gap-4 mb-6`}
+    >
+      {projectRepository && (
+        <a
+          href={projectRepository}
+          class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-muted/40 hover:bg-primary/10 border border-muted-foreground/10 shadow-sm transition-all duration-200 group no-underline"
+          target="_blank"
+        >
+          <span class="text-xl">🌐</span>
+          <div class="flex flex-col">
+            <span class="font-medium group-hover:text-primary group-hover:underline transition-colors">
+              Project
+            </span>
+            <span class="text-xs text-muted-foreground">Main Repository</span>
+          </div>
+        </a>
+      )}
 
-    {projectRepository && (
-      <a href={projectRepository} 
-         class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-muted/40 hover:bg-primary/10 border border-muted-foreground/10 shadow-sm transition-all duration-200 group no-underline" 
-         target="_blank">
-        <span class="text-xl">🌐</span>
-        <div class="flex flex-col">
-          <span class="font-medium group-hover:text-primary group-hover:underline transition-colors">Project</span>
-          <span class="text-xs text-muted-foreground">Main Repository</span>
-        </div>
-      </a>
-    )}
-    
-    {frontendRepository && (
-      <a href={frontendRepository} 
-         class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-muted/40 hover:bg-primary/10 border border-muted-foreground/10 shadow-sm transition-all duration-200 group no-underline" 
-         target="_blank">
-        <span class="text-xl">🚀</span>
-        <div class="flex flex-col">
-          <span class="font-medium group-hover:text-primary group-hover:underline transition-colors">Frontend</span>
-          <span class="text-xs text-muted-foreground">Client Application</span>
-        </div>
-      </a>
-    )}
-    
-    {backendRepository && (
-      <a href={backendRepository} 
-         class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-muted/40 hover:bg-primary/10 border border-muted-foreground/10 shadow-sm transition-all duration-200 group no-underline" 
-         target="_blank">
-        <span class="text-xl">⚙️</span>
-        <div class="flex flex-col">
-          <span class="font-medium group-hover:text-primary group-hover:underline transition-colors">Backend</span>
-          <span class="text-xs text-muted-foreground">Server API</span>
-        </div>
-      </a>
-    )}
-  </div>
-)}
+      {frontendRepository && (
+        <a
+          href={frontendRepository}
+          class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-muted/40 hover:bg-primary/10 border border-muted-foreground/10 shadow-sm transition-all duration-200 group no-underline"
+          target="_blank"
+        >
+          <span class="text-xl">🚀</span>
+          <div class="flex flex-col">
+            <span class="font-medium group-hover:text-primary group-hover:underline transition-colors">
+              Frontend
+            </span>
+            <span class="text-xs text-muted-foreground">
+              Client Application
+            </span>
+          </div>
+        </a>
+      )}
+
+      {backendRepository && (
+        <a
+          href={backendRepository}
+          class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-muted/40 hover:bg-primary/10 border border-muted-foreground/10 shadow-sm transition-all duration-200 group no-underline"
+          target="_blank"
+        >
+          <span class="text-xl">⚙️</span>
+          <div class="flex flex-col">
+            <span class="font-medium group-hover:text-primary group-hover:underline transition-colors">
+              Backend
+            </span>
+            <span class="text-xs text-muted-foreground">Server API</span>
+          </div>
+        </a>
+      )}
+
+      {deploymentUrl && (
+        <a
+          href={deploymentUrl}
+          class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-muted/40 hover:bg-primary/10 border border-muted-foreground/10 shadow-sm transition-all duration-200 group no-underline"
+          target="_blank"
+        >
+          <span class="text-xl">🔥</span>
+          <div class="flex flex-col">
+            <span class="font-medium group-hover:text-primary group-hover:underline transition-colors">
+              Deploy
+            </span>
+            <span class="text-xs text-muted-foreground">Try it out!</span>
+          </div>
+        </a>
+      )}
+    </div>
+  )
+}
