@@ -2,6 +2,7 @@
 import IndexPageLayout from '../layouts/IndexPageLayout.astro';
 import { Badge } from '../components/ui/badge';
 import { fetchDesignPatterns } from '../utils/github';
+import { PROFILE } from "../content/profileData";
 
 const patterns = await fetchDesignPatterns();
 
@@ -45,7 +46,7 @@ const patternsByType = patterns.reduce((acc, pattern) => {
                             <article class="group">
                                 <div class="flex items-center gap-3 mb-4">
                                     <img 
-                                        src="/CarapersonalizadaNotionBlue.png" 
+                                        src={PROFILE.image.avatarUrl} 
                                         alt="Javier Alonso avatar" 
                                         class="w-12 h-12 rounded-full object-cover"
                                         width="48"

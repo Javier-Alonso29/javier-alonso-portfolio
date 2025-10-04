@@ -6,6 +6,9 @@ export const PROFILE = {
         "Software Engineer specializing in web development and Atlassian solutions. Building scalable digital experiences with JavaScript, React, and Spring Boot.",
     },
   },
+  image: {
+    avatarUrl: "/Avatar.svg",
+  },
   timezone: "Mexico/General",
   language: "es-MX",
   firstName: "Javier Alonso",

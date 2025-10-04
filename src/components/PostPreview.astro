@@ -1,5 +1,6 @@
 ---
 import { Badge } from "../components/ui/badge";
+import { PROFILE } from "../content/profileData";
 
 interface Props {
   title: string;
@@ -21,7 +22,7 @@ const formattedDate = new Date(startDate).toLocaleDateString('en-US', {
 <article class="py-8 border-b border-gray-200">
   <div class="flex items-center gap-3 mb-4">
     <img 
-      src="/Group 2_v3.svg" 
+      src={PROFILE.image.avatarUrl} 
       alt="Javier Alonso avatar" 
       class="w-12 h-12 rounded-full object-cover"
       width="48"
