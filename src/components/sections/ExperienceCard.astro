@@ -32,9 +32,9 @@ experiences = experiences.slice(0, 3);
   {
     experiences.slice(0, 3).map((exp) => (
       <div class="space-y-2">
-        <div class="flex justify-between items-start">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
           <div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
               <a href={"/experiences/" + exp?.slug ?? ""}>
                 <h4 class="text-md text-primary font-medium hover:underline">
                   {exp.data.title}
@@ -48,10 +48,8 @@ experiences = experiences.slice(0, 3);
                   Present
                 </Badge>
               )}
-
-
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
               <div class="flex items-center gap-2">
                 <a class="text-sm hover:underline" href={exp.data.link}>
                   {exp.data.company}
@@ -68,9 +66,9 @@ experiences = experiences.slice(0, 3);
               )}
             </div>
           </div>
-          <p class="text-sm text-gray-600">
+          <p class="text-xs sm:text-sm text-muted-foreground shrink-0">
             {formateLocalDate(exp.data.startDate)}{" "}
-            {exp.data?.endDate ? "- " + formateLocalDate(exp.data.endDate) : ""}
+            {exp.data?.endDate ? "– " + formateLocalDate(exp.data.endDate) : ""}
           </p>
         </div>
 

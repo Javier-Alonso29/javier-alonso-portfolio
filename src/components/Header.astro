@@ -4,58 +4,160 @@ import { ModeToggle } from "../components/react/ThemeToggle";
 import { PROFILE } from "../content/profileData";
 
 const SITE = PROFILE.site;
+
+const navLinks = [
+  { href: "/design-patterns", label: "Design Patterns" },
+  { href: "/posts", label: "Blog" },
+  { href: "/projects", label: "Projects" },
+  { href: PROFILE.links.github, label: "GitHub", external: true },
+];
 ---
 
 <header
   class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
 >
   <div
-    class="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0"
+    class="container flex h-16 items-center justify-between px-4"
   >
-    <div class="flex gap-6 md:gap-10">
-      <a href="/" class="flex items-center space-x-3">
-        <img
-          src={PROFILE.image.avatarUrl}
-          alt="Profile"
-          class="h-10 w-10 rounded-full object-cover"
-        />
-        <span class="inline-block font-bold">{PROFILE.name}</span>
-      </a>
-    </div>
-    <div class="flex flex-1 items-center justify-end space-x-4">
-      <nav class="flex items-center space-x-1">
-        <a href="/design-patterns" class={buttonVariants({ variant: "ghost" })}>
-          Design Patterns
-        </a>
-        <a href="/posts" class={buttonVariants({ variant: "ghost" })}> Blog </a>
-        <a href="/projects" class={buttonVariants({ variant: "ghost" })}>
-          Projects
-        </a>
+    <!-- Logo / Nombre -->
+    <a href="/" class="flex items-center space-x-3 shrink-0">
+      <img
+        src={PROFILE.image.avatarUrl}
+        alt="Profile"
+        class="h-10 w-10 rounded-full object-cover"
+      />
+      <span class="inline-block font-bold">{PROFILE.name}</span>
+    </a>
+
+    <!-- Nav Desktop (md en adelante) -->
+    <div class="hidden md:flex flex-1 items-center justify-end space-x-1">
+      {navLinks.map((link) => (
         <a
-          href={PROFILE.links.github}
-          target="_blank"
-          rel="noreferrer"
+          href={link.href}
+          target={link.external ? "_blank" : undefined}
+          rel={link.external ? "noreferrer" : undefined}
           class={buttonVariants({ variant: "ghost" })}
         >
-          GitHub
+          {link.label}
         </a>
-
-        <ModeToggle transition:persist client:load />
-      </nav>
+      ))}
+      <ModeToggle transition:persist client:load />
     </div>
+
+    <!-- Controles Mobile: toggle tema + hamburguesa -->
+    <div class="flex md:hidden items-center gap-2">
+      <ModeToggle transition:persist client:load />
+      <button
+        id="mobile-menu-btn"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring"
+      >
+        <!-- Ícono hamburguesa -->
+        <svg
+          id="icon-open"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="18" x2="20" y2="18" />
+        </svg>
+        <!-- Ícono X (cerrar) -->
+        <svg
+          id="icon-close"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="hidden"
+        >
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú Mobile desplegable -->
+  <div
+    id="mobile-menu"
+    role="navigation"
+    aria-label="Menú de navegación móvil"
+    class="hidden md:hidden border-t bg-background/95 backdrop-blur"
+  >
+    <nav class="flex flex-col px-4 py-3 gap-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          target={link.external ? "_blank" : undefined}
+          rel={link.external ? "noreferrer" : undefined}
+          class="mobile-nav-link flex items-center rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
   </div>
 </header>
 
 <script is:inline>
+  // Tema
   document.addEventListener("astro:after-swap", function () {
     if (localStorage.getItem("theme") === "dark")
       document.documentElement.classList.toggle("dark", true);
   });
-
-  const getThemePreference = () => {
-    return localStorage.getItem("theme");
-  };
-
-  const isDark = getThemePreference() === "dark";
+  const isDark = localStorage.getItem("theme") === "dark";
   document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+  // Hamburguesa
+  function initMobileMenu() {
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    const iconOpen = document.getElementById("icon-open");
+    const iconClose = document.getElementById("icon-close");
+
+    if (!btn || !menu) return;
+
+    function toggleMenu(open) {
+      menu.classList.toggle("hidden", !open);
+      iconOpen.classList.toggle("hidden", open);
+      iconClose.classList.toggle("hidden", !open);
+      btn.setAttribute("aria-expanded", String(open));
+      btn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    }
+
+    btn.addEventListener("click", () => {
+      const isOpen = !menu.classList.contains("hidden");
+      toggleMenu(!isOpen);
+    });
+
+    // Cerrar al hacer clic en un link del menú
+    menu.querySelectorAll(".mobile-nav-link").forEach((link) => {
+      link.addEventListener("click", () => toggleMenu(false));
+    });
+
+    // Cerrar si se redimensiona a desktop
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768) toggleMenu(false);
+    });
+  }
+
+  initMobileMenu();
+  document.addEventListener("astro:after-swap", initMobileMenu);
 </script>

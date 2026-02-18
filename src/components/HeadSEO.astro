@@ -9,7 +9,14 @@ interface Props {
 }
 
 const {title, description, ogImage, canonicalURL} = Astro.props
-const canonical = canonicalURL? canonicalURL: new URL(Astro.url.pathname, Astro.site)
+const canonical = canonicalURL ? canonicalURL : new URL(Astro.url.pathname, Astro.site)
+
+const SITE_NAME = "Javier Alonso | Software Engineer"
+const AUTHOR = "Javier Alonso"
+const TWITTER_HANDLE = "@JavierAlonsoCal"
+// Imagen OG por defecto (se usa cuando no se pasa ogImage)
+const defaultOGImage = new URL('/profile2.jpeg', Astro.site)
+const resolvedOGImage = ogImage ?? defaultOGImage
 ---
 
 <meta charset="utf-8"/>
@@ -17,33 +24,37 @@ const canonical = canonicalURL? canonicalURL: new URL(Astro.url.pathname, Astro.
 <meta name="googlebot" content="index, follow"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="generator" content={Astro.generator}/>
+<meta name="author" content={AUTHOR}/>
+<meta name="theme-color" content="#6366f1"/>
+
 <link rel="canonical" href={canonical}/>
-<link
-  rel="shortcut icon"
-  type="image/svg+xml"
-  href="/favicon.ico"
-/>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="apple-touch-icon" href="/favicon.ico"/>
+<link rel="sitemap" href="/sitemap-index.xml"/>
+
 <title>{title}</title>
 <meta name="title" content={title}/>
 <meta name="description" content={description}/>
 
+<!-- Open Graph -->
 <meta property="og:type" content="website"/>
+<meta property="og:site_name" content={SITE_NAME}/>
 <meta property="og:url" content={canonical}/>
 <meta property="og:title" content={title}/>
 <meta property="og:description" content={description}/>
-{
-  ogImage ?
-  <>
-    <meta property="og:image" content={ogImage}/>
-    <meta property="twitter:image" content={ogImage}/>
-  </>:
-  <></>
-  }
+<meta property="og:image" content={resolvedOGImage}/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:locale" content="en_US"/>
 
+<!-- Twitter / X -->
 <meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:site" content={TWITTER_HANDLE}/>
+<meta property="twitter:creator" content={TWITTER_HANDLE}/>
 <meta property="twitter:url" content={canonical}/>
 <meta property="twitter:title" content={title}/>
 <meta property="twitter:description" content={description}/>
+<meta property="twitter:image" content={resolvedOGImage}/>
 
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"></noscript>

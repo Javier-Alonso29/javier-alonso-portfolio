@@ -1,10 +1,14 @@
 ---
 import ContentTags from "../components/ContentTags.astro";
 import IndexPageLayout from "./IndexPageLayout.astro";
+import SchemaOrg from "../components/SchemaOrg.astro";
 
 const {frontmatter} = Astro.props;
 const {title, description, image, startDate, tags, canonical} = frontmatter;
 // frontmatter is from MDX metadata for MD pages, we now use content for data now, we use frontmatter for backward compatibility
+
+const articleDate = startDate ? new Date(startDate).toISOString() : undefined;
+const articleImage = image?.url ? String(image.url) : undefined;
 ---
 
 <IndexPageLayout title={title} description={description} image={image} subTitle={title} canonicalURL={canonical}>
@@ -26,6 +30,15 @@ const {title, description, image, startDate, tags, canonical} = frontmatter;
       <!--required with tailwind typography plugin + prose to render html-->
       <slot/>
     </article>
+
+    <!-- JSON-LD schema for article/project pages -->
+    <SchemaOrg
+      type="Article"
+      articleTitle={title}
+      articleDescription={description}
+      articleDate={articleDate}
+      articleImage={articleImage}
+    />
   </div>
 
 </IndexPageLayout>

@@ -5,6 +5,19 @@ import {Linkedin, Github, Mail, Twitter, FileDown} from 'lucide-react'
 ---
 
 <div class="flex h-full w-full animate-appear flex-col md:flex-row gap-4">
+
+  <!-- Foto en mobile: centrada arriba, oculta en md+ (se muestra a la derecha) -->
+  <div class="flex justify-center md:hidden">
+    <img
+      src={PROFILE.avatarUrl}
+      class="pointer-events-none w-28 h-28 object-cover select-none rounded-full border-2 border-muted"
+      width="112"
+      height="112"
+      alt={`Foto de perfil de ${PROFILE.name}`}
+      loading="eager"
+    />
+  </div>
+
   <div class="flex flex-col justify-between gap-4 flex-1">
     <div class="flex h-full flex-col">
       <p class="m-0 text-xl font-light">
@@ -15,22 +28,22 @@ import {Linkedin, Github, Mail, Twitter, FileDown} from 'lucide-react'
         {PROFILE.description}
       </p>
     </div>
-    <div class="flex gap-4">
-      <a href={PROFILE.links.github} aria-label="github profile" target="_blank">
+    <div class="flex flex-wrap gap-2">
+      <a href={PROFILE.links.github} aria-label="github profile" target="_blank" rel="noopener noreferrer">
         <Button aria-label="github profile">
           <Github/>
           <span class="sr-only">GitHub Profile</span>
         </Button>
       </a>
       {
-        PROFILE.links?.twitter && <a href={PROFILE.links.twitter} aria-label="twitter profile" target="_blank">
+        PROFILE.links?.twitter && <a href={PROFILE.links.twitter} aria-label="twitter profile" target="_blank" rel="noopener noreferrer">
           <Button aria-label="twitter profile">
             <Twitter/>
             <span class="sr-only">Twitter profile</span>
           </Button>
         </a>
       }
-      <a href={PROFILE.links.linkedin} aria-label="linkedin profile" target="_blank">
+      <a href={PROFILE.links.linkedin} aria-label="linkedin profile" target="_blank" rel="noopener noreferrer">
         <Button aria-label="linkedin profile">
           <Linkedin/>
           <span class="sr-only">LinkedIn Profile</span>
@@ -45,18 +58,19 @@ import {Linkedin, Github, Mail, Twitter, FileDown} from 'lucide-react'
       <a href="/assets/JavierAlonso_CV.pdf" download aria-label="download resume">
         <Button aria-label="download resume" variant="default" className="gap-2">
           <FileDown />
-          <span>
-            Download Resume
-          </span>
+          <span>Download Resume</span>
         </Button>
       </a>
     </div>
   </div>
+
+  <!-- Foto en desktop: a la derecha, rectangular -->
   <img
     src={PROFILE.avatarUrl}
     class="pointer-events-none hidden md:block w-64 h-64 object-cover select-none rounded-lg"
     width="256"
     height="256"
     alt={`image of ${PROFILE.name}`}
+    loading="eager"
   />
 </div>

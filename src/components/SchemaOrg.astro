@@ -1,0 +1,92 @@
+---
+/**
+ * SchemaOrg.astro
+ * Datos estructurados JSON-LD para mejorar los rich results en Google.
+ * Se incluye en BaseLayout para todas las páginas.
+ */
+import { PROFILE } from '../content/profileData'
+
+interface Props {
+  /** Para páginas de blog/proyecto: tipo 'Article' */
+  type?: 'WebSite' | 'Article'
+  articleTitle?: string
+  articleDescription?: string
+  articleDate?: string
+  articleImage?: string
+}
+
+const {
+  type = 'WebSite',
+  articleTitle,
+  articleDescription,
+  articleDate,
+  articleImage,
+} = Astro.props
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? ''
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString()
+
+const personSchema = {
+  '@type': 'Person',
+  '@id': `${siteUrl}/#person`,
+  name: PROFILE.name,
+  url: siteUrl,
+  email: PROFILE.email,
+  image: {
+    '@type': 'ImageObject',
+    url: `${siteUrl}/profile2.jpeg`,
+  },
+  sameAs: [
+    PROFILE.links.github,
+    PROFILE.links.linkedin,
+    PROFILE.links.twitter,
+  ],
+  jobTitle: 'Software Engineer',
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: PROFILE.studies[0].institution,
+  },
+  knowsAbout: PROFILE.skills,
+}
+
+const webSiteSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: 'Javier Alonso | Software Engineer',
+      description: PROFILE.site.SEO.description,
+      publisher: { '@id': `${siteUrl}/#person` },
+      inLanguage: 'en-US',
+    },
+    personSchema,
+  ],
+}
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personSchema,
+    {
+      '@type': 'Article',
+      '@id': `${canonicalUrl}#article`,
+      headline: articleTitle,
+      description: articleDescription,
+      url: canonicalUrl,
+      datePublished: articleDate,
+      author: { '@id': `${siteUrl}/#person` },
+      publisher: { '@id': `${siteUrl}/#person` },
+      image: articleImage
+        ? { '@type': 'ImageObject', url: articleImage }
+        : { '@type': 'ImageObject', url: `${siteUrl}/profile2.jpeg` },
+      inLanguage: 'en-US',
+    },
+  ],
+}
+
+const schema = type === 'Article' ? articleSchema : webSiteSchema
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
