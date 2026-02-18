@@ -40,4 +40,4 @@ Disallow: /404.html
 Disallow: /404/
 Disallow: /umami.js
 
-Sitemap: https://javieralonso.netlify.app/sitemap-index.xml
+Sitemap: https://javieralonso.netlify.app/sitemap.xml
