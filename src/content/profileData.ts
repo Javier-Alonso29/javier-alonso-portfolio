@@ -3,7 +3,7 @@ export const PROFILE = {
     SEO: {
       title: "Javier Alonso | Software Engineer",
       description:
-        "Software Engineer specializing in web development and Atlassian solutions. Building scalable digital experiences with JavaScript, React, and Spring Boot.",
+        "Senior Frontend Engineer | React.js, TypeScript, Next.js & Node.js | Ex-Encora & CEPAL | Building Scalable UI at Accenture",
     },
   },
   image: {
@@ -47,6 +47,11 @@ export const PROFILE = {
     {
       title: "Ingeniería de software",
       institution: "Universidad Autónoma de Zacatecas",
+    },
+    {
+      title: "Claude Code in Action",
+      institution: "Anthropic",
+      link: "https://verify.skilljar.com/c/8wq2hov6aism",
     },
   ],
 };

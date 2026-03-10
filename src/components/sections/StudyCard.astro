@@ -1,24 +1,51 @@
 ---
-import Card from '../Card.astro'
-import { Badge } from '../ui/badge'
 import { shuffleArray } from "../../lib/utils";
 import { PROFILE } from "../../content/profileData";
+import { GraduationCap, ExternalLink, Award } from "lucide-react";
 
 
 shuffleArray(PROFILE.studies)
 ---
 
 
-<div class="mt-2 flex w-full flex-wrap items-center justify-center gap-2">
+<div class="mt-2 space-y-4 animate-appear">
   {
-    PROFILE.studies.map((study) => (
-      <Badge variant="outline">
-        <div class="flex flex-col items-center">
-          <span>{study.title}</span>
-          <div class="w-full border-t border-muted my-1"></div>
-          <span class="text-xs text-muted-foreground">{study.institution}</span>
-        </div>
-      </Badge>
-    ))
+    PROFILE.studies.map((study) => {
+      const Component = study.link ? 'a' : 'div';
+      const linkProps = study.link ? { href: study.link, target: "_blank", rel: "noopener noreferrer" } : {};
+      const isAnthropic = study.institution === "Anthropic";
+
+      return (
+        <Component
+          class="relative block rounded-lg border border-muted-foreground/20 bg-muted/30 p-4 transition-all hover:border-primary/50 hover:bg-muted/50 hover:shadow-sm"
+          {...linkProps}
+        >
+          <div class="flex items-start gap-3">
+            <div class="flex-shrink-0 mt-1">
+              <div class="rounded-full bg-primary/10 p-2 group-hover:bg-primary/20 transition-colors">
+                {isAnthropic ? (
+                  <Award className="h-5 w-5 text-primary" />
+                ) : (
+                  <GraduationCap className="h-5 w-5 text-primary" />
+                )}
+              </div>
+            </div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center gap-2">
+                <h4 class="font-semibold text-foreground leading-tight">
+                  {study.title}
+                </h4>
+                {study.link && (
+                  <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                )}
+              </div>
+              <p class="text-sm text-muted-foreground leading-relaxed">
+                {study.institution}
+              </p>
+            </div>
+          </div>
+        </Component>
+      );
+    })
   }
 </div>
