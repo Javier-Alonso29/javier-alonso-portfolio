@@ -3,8 +3,16 @@ import BaseLayout from 'src/layouts/BaseLayout.astro'
 import TopLayout from 'src/layouts/TopLayout.astro'
 import BottomLayout from 'src/layouts/BottomLayout.astro'
 import CustomisedBreadCrumbs from "../components/CustomisedBreadCrumbs.astro";
+import type { Language } from '../i18n/ui'
 
-let {title, description, image, subTitle, canonicalURL} = Astro.props;
+let {title, description, image, subTitle, canonicalURL, lang = 'en'} = Astro.props as {
+  title: string
+  description: string
+  image?: { url: string }
+  subTitle?: string
+  canonicalURL?: URL
+  lang?: Language
+};
 
 if (!subTitle) {
   subTitle = title;
@@ -16,6 +24,7 @@ if (!subTitle) {
   description={description}
   ogImage={image?.url}
   canonicalURL={canonicalURL}
+  lang={lang}
 >
   <main class="flex min-h-[80vh] flex-auto flex-col w-full p-4 max-w-screen-lg" transition:name="hero">
     <TopLayout>

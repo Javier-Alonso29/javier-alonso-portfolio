@@ -1,10 +1,10 @@
 ---
-import ProjectCard from 'src/components/ProjectCard.astro'
+import ProjectCard from '../../../components/ProjectCard.astro'
 import { getCollection } from "astro:content";
-import IndexPageLayout from "../../layouts/IndexPageLayout.astro";
-import { useTranslations } from "../../i18n/utils";
+import IndexPageLayout from "../../../layouts/IndexPageLayout.astro";
+import { useTranslations } from "../../../i18n/utils";
 
-const lang = 'en'
+const lang = 'es'
 const t = useTranslations(lang)
 
 const projects = await getCollection('projects');

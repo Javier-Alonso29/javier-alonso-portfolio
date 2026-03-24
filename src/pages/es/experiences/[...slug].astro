@@ -1,12 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import MDXLayout from "../../layouts/MDXLayout.astro";
-
+import MDXLayout from "../../../layouts/MDXLayout.astro";
 
 export async function getStaticPaths() {
   const experienceEntries = await getCollection('experiences');
   return experienceEntries.map(entry => ({
-    params: {slug: entry.slug}, props: {entry},
+    params: { slug: entry.slug }, props: { entry },
   }));
 }
 

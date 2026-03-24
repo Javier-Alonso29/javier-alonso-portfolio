@@ -9,19 +9,18 @@ export const PROFILE = {
   image: {
     avatarUrl: "/Avatar.svg",
   },
+  avatarUrl: "/profile2.jpeg",
   timezone: "Mexico/General",
   language: "es-MX",
   firstName: "Javier Alonso",
   name: "Javier Alonso",
-  headLine: "Turning ideas into products. 💡 ",
-  headLine2:
-    "I enjoy providing software solutions and bring ideas to life.",
-  avatarUrl: "profile2.jpeg",
+  headline: "Senior Frontend Engineer | React.js, TypeScript, Next.js & Node.js | Ex-Encora & CEPAL | Building Scalable UI at Accenture",
   description: "Software Engineer specialized in building scalable, high-performing frontend applications with React and modern JavaScript ecosystems, complemented by solid backend and performance testing experience. 🚀",
   words: ["As each one has received a gift, minister it to one another"],
   skills: [
     "JavaScript",
     "TypeScript",
+    "Next.js",
     "React",
     "Node",
     "Express",

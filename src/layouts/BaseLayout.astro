@@ -4,18 +4,20 @@ import HeadSEO from '../components/HeadSEO.astro'
 import SchemaOrg from '../components/SchemaOrg.astro'
 import Footer from '../components/Footer.astro'
 import Header from '../components/Header.astro'
+import type { Language } from '../i18n/ui'
 
 interface Props {
   title?: string
   description?: string
   ogImage?: URL
   canonicalURL?: URL
+  lang?: Language
 }
 
-const { title, description, ogImage, canonicalURL } = Astro.props
+const { title, description, ogImage, canonicalURL, lang = 'en' } = Astro.props
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
     <HeadSEO title={title} description={description} ogImage={ogImage} canonicalURL={canonicalURL} />
     <SchemaOrg type="WebSite" />
@@ -23,9 +25,9 @@ const { title, description, ogImage, canonicalURL } = Astro.props
   </head>
   <body class="min-h-screen bg-background font-sans antialiased overflow-x-hidden">
     <div class="flex flex-col items-center justify-center">
-      <Header />
+      <Header lang={lang} />
       <slot />
-      <Footer />
+      <Footer lang={lang} />
     </div>
   </body>
 </html>
