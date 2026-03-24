@@ -1,6 +1,8 @@
 ---
 import { Badge } from "../components/ui/badge";
 import { PROFILE } from "../content/profileData";
+import type { Language } from "../i18n/ui";
+import { getLangPrefix } from "../i18n/utils";
 
 interface Props {
   title: string;
@@ -8,11 +10,14 @@ interface Props {
   slug: string;
   startDate: string;
   tags: string[];
+  lang?: Language;
 }
 
-const { title, description, slug, startDate, tags } = Astro.props;
+const { title, description, slug, startDate, tags, lang = 'en' } = Astro.props;
+const prefix = getLangPrefix(lang);
 
-const formattedDate = new Date(startDate).toLocaleDateString('en-US', {
+const locale = lang === 'es' ? 'es-MX' : 'en-US';
+const formattedDate = new Date(startDate).toLocaleDateString(locale, {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
@@ -21,9 +26,9 @@ const formattedDate = new Date(startDate).toLocaleDateString('en-US', {
 
 <article class="py-8 border-b border-gray-200">
   <div class="flex items-center gap-3 mb-4">
-    <img 
-      src={PROFILE.image.avatarUrl} 
-      alt="Javier Alonso avatar" 
+    <img
+      src={PROFILE.image.avatarUrl}
+      alt="Javier Alonso avatar"
       class="w-12 h-12 rounded-full object-cover"
       width="48"
       height="48"
@@ -35,7 +40,7 @@ const formattedDate = new Date(startDate).toLocaleDateString('en-US', {
   </div>
 
   <h2 class="text-2xl font-bold mb-3">
-    <a href={`/posts/${slug}`} class="hover:text-primary transition-colors">
+    <a href={`${prefix}/posts/${slug}`} class="hover:text-primary transition-colors">
       {title}
     </a>
   </h2>

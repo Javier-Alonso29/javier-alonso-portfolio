@@ -1,14 +1,25 @@
 ---
 import { buttonVariants } from "../components/ui/button";
 import { ModeToggle } from "../components/react/ThemeToggle";
+import { LanguageToggle } from "../components/react/LanguageToggle";
 import { PROFILE } from "../content/profileData";
+import { useTranslations, getLanguageAlternate, getLangPrefix } from "../i18n/utils";
+import type { Language } from "../i18n/ui";
 
-const SITE = PROFILE.site;
+interface Props {
+  lang?: Language
+}
+
+const { lang = 'en' } = Astro.props
+const t = useTranslations(lang)
+const prefix = getLangPrefix(lang)
+
+const langToggleHref = getLanguageAlternate(Astro.url.pathname, lang === 'en' ? 'es' : 'en')
 
 const navLinks = [
-  { href: "/design-patterns", label: "Design Patterns" },
-  { href: "/posts", label: "Blog" },
-  { href: "/projects", label: "Projects" },
+  { href: `${prefix}/design-patterns`, label: t('nav.designPatterns') },
+  { href: `${prefix}/posts`, label: t('nav.blog') },
+  { href: `${prefix}/projects`, label: t('nav.projects') },
   { href: PROFILE.links.github, label: "GitHub", external: true },
 ];
 ---
@@ -20,7 +31,7 @@ const navLinks = [
     class="container flex h-16 items-center justify-between px-4"
   >
     <!-- Logo / Nombre -->
-    <a href="/" class="flex items-center space-x-3 shrink-0">
+    <a href={`${prefix}/`} class="flex items-center space-x-3 shrink-0">
       <img
         src={PROFILE.image.avatarUrl}
         alt="Profile"
@@ -41,11 +52,25 @@ const navLinks = [
           {link.label}
         </a>
       ))}
+      <LanguageToggle
+        currentLang={lang}
+        href={langToggleHref}
+        label={t('lang.switchLabel')}
+        client:load
+        transition:persist
+      />
       <ModeToggle transition:persist client:load />
     </div>
 
     <!-- Controles Mobile: toggle tema + hamburguesa -->
     <div class="flex md:hidden items-center gap-2">
+      <LanguageToggle
+        currentLang={lang}
+        href={langToggleHref}
+        label={t('lang.switchLabel')}
+        client:load
+        transition:persist
+      />
       <ModeToggle transition:persist client:load />
       <button
         id="mobile-menu-btn"
