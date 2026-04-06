@@ -1,0 +1,299 @@
+---
+// src/pages/briefing.astro
+import IndexPageLayout from '@/layouts/IndexPageLayout.astro'
+---
+
+<IndexPageLayout
+  title="Briefing de proyecto — Javier Alonso"
+  description="Comparte los detalles de tu proyecto y te prepararé una propuesta personalizada."
+  subTitle="Nuevo proyecto"
+>
+  <div class="w-full max-w-2xl mx-auto px-4 pb-16">
+
+    <!-- HERO -->
+    <div class="mb-10 text-center">
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Con base en los datos que nos comparta, prepararemos una propuesta detallada
+        que se ajuste a las necesidades específicas de su proyecto, con tiempos y costos definidos.
+        La información proporcionada será tratada con total confidencialidad.
+      </p>
+    </div>
+
+    <!-- FORMULARIO NETLIFY -->
+    <form
+      name="briefing"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      class="space-y-10"
+    >
+      <!-- Campo oculto obligatorio para Netlify -->
+      <input type="hidden" name="form-name" value="briefing" />
+      <!-- Honeypot anti-spam -->
+      <p class="hidden">
+        <label>No llenar: <input name="bot-field" /></label>
+      </p>
+
+      <!-- SECCIÓN I -->
+      <section>
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-5 pb-3 border-b border-border">
+          I. Datos de contacto
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="nombre">
+              Nombre completo <span class="text-destructive">*</span>
+            </label>
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              required
+              placeholder="Nombre y apellido"
+              class="input-field"
+            />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="empresa">
+              Empresa o marca <span class="text-destructive">*</span>
+            </label>
+            <input
+              id="empresa"
+              name="empresa"
+              type="text"
+              required
+              placeholder="Nombre de tu negocio"
+              class="input-field"
+            />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="email">
+              Correo electrónico <span class="text-destructive">*</span>
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="correo@empresa.com"
+              class="input-field"
+            />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="telefono">
+              Teléfono / WhatsApp <span class="text-destructive">*</span>
+            </label>
+            <input
+              id="telefono"
+              name="telefono"
+              type="text"
+              required
+              placeholder="+52 492 000 0000"
+              class="input-field"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN II -->
+      <section>
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-5 pb-3 border-b border-border">
+          II. Información del proyecto
+        </h2>
+        <div class="space-y-6">
+
+          <div class="flex flex-col gap-3">
+            <label class="text-sm text-muted-foreground">
+              ¿Qué tipo de sitio web requiere? <span class="text-destructive">*</span>
+            </label>
+            <div class="space-y-2.5">
+              {[
+                ["tipo-presentacion", "Sitio de presentación de marca (quiénes somos, servicios, contacto)"],
+                ["tipo-portal",       "Portal de contenidos o blog (noticias, artículos, eventos)"],
+                ["tipo-tienda",       "Tienda en línea o catálogo de productos"],
+                ["tipo-landing",      "Landing page o página de campaña específica"],
+                ["tipo-indefinido",   "Aún no lo tengo definido / requiero asesoría"],
+              ].map(([id, label]) => (
+                <label class="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="radio"
+                    id={id}
+                    name="tipo_sitio"
+                    value={label}
+                    required
+                    class="mt-0.5 accent-primary w-4 h-4 flex-shrink-0"
+                  />
+                  <span class="text-sm text-foreground/80 group-hover:text-foreground transition-colors">
+                    {label}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <label class="text-sm text-muted-foreground">
+              Objetivos del sitio (seleccione todos los que apliquen)
+            </label>
+            <div class="space-y-2.5">
+              {[
+                "Fortalecer la presencia y credibilidad de la marca",
+                "Publicar y distribuir contenido de forma continua",
+                "Atraer marcas, patrocinadores o anunciantes",
+                "Mejorar el posicionamiento en buscadores (SEO)",
+                "Ampliar el alcance más allá de las redes sociales",
+                "Vender productos o servicios en línea",
+              ].map((obj) => (
+                <label class="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    name="objetivos"
+                    value={obj}
+                    class="mt-0.5 accent-primary w-4 h-4 flex-shrink-0"
+                  />
+                  <span class="text-sm text-foreground/80 group-hover:text-foreground transition-colors">
+                    {obj}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <label class="text-sm text-muted-foreground">
+              ¿Cuenta con dominio y/o hosting contratado?
+            </label>
+            <div class="space-y-2.5">
+              {[
+                "Sí, ya contamos con dominio y hosting",
+                "Solo contamos con el dominio",
+                "No, partiríamos desde cero",
+                "No estoy seguro",
+              ].map((op) => (
+                <label class="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="radio"
+                    name="hosting"
+                    value={op}
+                    class="mt-0.5 accent-primary w-4 h-4 flex-shrink-0"
+                  />
+                  <span class="text-sm text-foreground/80 group-hover:text-foreground transition-colors">
+                    {op}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="descripcion">
+              Describa brevemente su marca y a quién va dirigida
+            </label>
+            <textarea
+              id="descripcion"
+              name="descripcion"
+              rows="4"
+              placeholder="Ej. Somos un medio de entretenimiento enfocado en la vida social joven de Zacatecas. Nuestro público es de 18 a 30 años..."
+              class="input-field resize-none"
+            ></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN III -->
+      <section>
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-5 pb-3 border-b border-border">
+          III. Tiempos y presupuesto
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="tiempo">
+              Tiempo estimado de entrega <span class="text-destructive">*</span>
+            </label>
+            <select id="tiempo" name="tiempo" required class="input-field">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option>Urgente — 1 a 2 semanas</option>
+              <option>Corto plazo — 1 mes</option>
+              <option>Mediano plazo — 2 a 3 meses</option>
+              <option>Sin fecha límite definida</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="presupuesto">
+              Rango de inversión estimada
+            </label>
+            <select id="presupuesto" name="presupuesto" class="input-field">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option>Menos de $5,000 MXN</option>
+              <option>$5,000 – $10,000 MXN</option>
+              <option>$10,000 – $20,000 MXN</option>
+              <option>Más de $20,000 MXN</option>
+              <option>Por definir / requiero cotización</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN IV -->
+      <section>
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-5 pb-3 border-b border-border">
+          IV. Referencias y observaciones
+        </h2>
+        <div class="space-y-5">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="referencia">
+              Sitio(s) web de referencia que le agraden
+            </label>
+            <input
+              id="referencia"
+              name="referencia"
+              type="url"
+              placeholder="https://..."
+              class="input-field"
+            />
+            <p class="text-xs text-muted-foreground/70 italic">
+              Puede incluir sitios de otras industrias. Lo importante es el estilo visual o experiencia que le gustaría replicar.
+            </p>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm text-muted-foreground" for="comentarios">
+              Comentarios adicionales o requerimientos especiales
+            </label>
+            <textarea
+              id="comentarios"
+              name="comentarios"
+              rows="4"
+              placeholder="Ideas, necesidades especiales, experiencias previas con otros desarrolladores..."
+              class="input-field resize-none"
+            ></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER DEL FORM -->
+      <div class="pt-4 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <p class="text-xs text-muted-foreground leading-relaxed max-w-sm">
+          Una vez recibido su formulario, me pondré en contacto en un plazo no mayor a 24 horas
+          para confirmar los detalles y enviarle la propuesta.
+        </p>
+        <button
+          type="submit"
+          class="flex-shrink-0 bg-primary hover:bg-primary/90 active:scale-95 text-primary-foreground text-sm font-medium px-6 py-3 rounded-lg transition-all duration-150"
+        >
+          Enviar briefing →
+        </button>
+      </div>
+    </form>
+  </div>
+</IndexPageLayout>
+
+<style>
+  .input-field {
+    @apply w-full px-3.5 py-2.5 text-sm rounded-lg
+           border border-input
+           bg-background text-foreground
+           placeholder:text-muted-foreground
+           focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent
+           transition-colors;
+  }
+</style>
