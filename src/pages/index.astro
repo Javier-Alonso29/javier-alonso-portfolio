@@ -50,14 +50,20 @@ const SITE = PROFILE.site
       <BlogCard/>
     </Card>
 
-    <Card colSpan="lg:col-span-3 md:col-span-1" rowSpan="md:row-span-1 lg:row-span-2" title="Your time">
-      <TimeZoneCard/>
-    </Card>
-    <Card colSpan="lg:col-span-3 md:col-span-1" rowSpan="md:row-span-1 lg:row-span-2" title="My time">
-      <TimeZoneCard timezone={PROFILE.timezone} />
+    <Card colSpan="md:col-span-2 lg:col-span-6" rowSpan="md:row-span-1 lg:row-span-2">
+      <div class="grid grid-cols-2 gap-6 h-full">
+        <div class="flex flex-col gap-1">
+          <h2 class="m-0 text-xl font-bold">Your time</h2>
+          <TimeZoneCard/>
+        </div>
+        <div class="flex flex-col gap-1 border-l border-border pl-6">
+          <h2 class="m-0 text-xl font-bold">My time</h2>
+          <TimeZoneCard timezone={PROFILE.timezone} />
+        </div>
+      </div>
     </Card>
 
-    <Card colSpan="md:col-span-1 lg:col-span-6" rowSpan="md:row-span-2 lg:row-span-2"
+    <Card colSpan="md:col-span-2 lg:col-span-6" rowSpan="md:row-span-2 lg:row-span-2"
           title="Education and Certificates">
       <StudyCard/>
     </Card>

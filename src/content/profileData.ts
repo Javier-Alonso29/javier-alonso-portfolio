@@ -45,13 +45,21 @@ export const PROFILE = {
   email: "javier.alonso.dev@gmail.com",
   studies: [
     {
-      title: "Ingeniería de software",
-      institution: "Universidad Autónoma de Zacatecas",
+      title: "SI Associate Quiz",
+      institution: "MongoDB",
+      icon: "award",
+      link: "https://learn.mongodb.com/c/xabkWXGLQhSDr9AEMIWSOg",
     },
     {
       title: "Claude Code in Action",
       institution: "Anthropic",
+      icon: "award",
       link: "https://verify.skilljar.com/c/8wq2hov6aism",
+    },
+    {
+      title: "Ingeniería de software",
+      institution: "Universidad Autónoma de Zacatecas",
+      icon: "graduation",
     },
   ],
 };
